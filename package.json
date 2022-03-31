@@ -1,0 +1,19 @@
+{
+  "name": "sheet_pratice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel ./src/index.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "vexflow": "^4.0.1"
+  },
+  "devDependencies": {
+    "parcel": "^2.4.0",
+    "typescript": "^4.6.3"
+  }
+}
