@@ -21,7 +21,8 @@ export class SingleNoteDisplayer {
 
     this.context = renderer.getContext() as SVGContext;
     this.stave = new Stave(0, 0, 120);
-    this.stave.addClef(clef).addTimeSignature("1/1");
+    this.stave.addClef(clef)
+    // .addTimeSignature("1/1");
     this.stave.setContext(this.context).draw();
   }
   private lastNote: SVGElement | null = null;
