@@ -5,7 +5,7 @@
   "source": "src/index.html",
   "scripts": {
     "start": "parcel ./src/index.html",
-    "build": "parcel build --public-url ."
+    "build": "rm -rf ./dist && parcel build --public-url ."
   },
   "keywords": [],
   "author": "",
