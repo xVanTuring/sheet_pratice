@@ -5,7 +5,8 @@ export class StaveDisplayer {
   private stave: Stave | null = null;
   constructor(
     private readonly div: HTMLDivElement,
-    private readonly clef: "treble" | "bass" = "treble"
+    private readonly clef: "treble" | "bass" = "treble",
+    private readonly timeSignature = "4/4"
   ) {
     const renderer = new Renderer(this.div, Renderer.Backends.SVG);
 
@@ -22,7 +23,7 @@ export class StaveDisplayer {
     }
     this.staveEle = this.context.openGroup();
     this.stave = new Stave(0, 0, 300);
-    this.stave.addClef(this.clef).addTimeSignature("4/4");
+    this.stave.addClef(this.clef).addTimeSignature(this.timeSignature);
     this.stave.setContext(this.context).draw();
     this.context.closeGroup();
   }
