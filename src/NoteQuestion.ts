@@ -1,8 +1,9 @@
-import { randomOneNote } from "./utils";
+import { NoteRanger } from "./NoteRanger";
 
 export class NoteQuestion {
   constructor(
     private readonly div: HTMLDivElement,
+    private readonly randomNote: NoteRanger,
     private readonly interval: number,
     private readonly resultDelay: number = 500
   ) {
@@ -44,12 +45,12 @@ export class NoteQuestion {
     }, this.resultDelay);
   }
 
-  setAnswer(note: string, clef: "bass" | "treble") {
+  setAnswer(note: string) {
     let selections: string[] = [];
     for (let index = 0; index < 4; index++) {
       let _note = "";
       do {
-        _note = randomOneNote(clef);
+        _note = this.randomNote.next();
       } while (_note === note || selections.includes(_note));
       selections.push(_note);
     }

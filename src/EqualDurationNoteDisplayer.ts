@@ -1,12 +1,13 @@
 import { Stave, StaveNote, SVGContext, VoiceTime } from "vexflow";
 import { NoteDisplayer } from "./NoteDisplayer";
-import { randomOneNote } from "./utils";
+import { NoteRanger } from "./NoteRanger";
 
 export class EqualDurationNoteDisplayer extends NoteDisplayer {
   private beatCount: number;
   constructor(
     context: SVGContext,
     stave: Stave,
+    private readonly randomNote: NoteRanger,
     private voiceInfo: {
       voiceTime: VoiceTime;
       subDuration: number;
@@ -25,7 +26,7 @@ export class EqualDurationNoteDisplayer extends NoteDisplayer {
   draw() {
     const noteChar = Array(this.beatCount)
       .fill(1)
-      .map(() => randomOneNote(this.voiceInfo.clef));
+      .map(() => this.randomNote.next());
 
     const notes = noteChar.map((note) => {
       return new StaveNote({

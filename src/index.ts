@@ -1,5 +1,6 @@
 import { EqualDurationNoteDisplayer } from "./EqualDurationNoteDisplayer";
 import { NoteQuestion } from "./NoteQuestion";
+import { NoteRanger } from "./NoteRanger";
 import { Statistic } from "./Statistics";
 import { StaveDisplayer } from "./StaveDisplayer";
 let clef: "treble" | "bass" = "treble";
@@ -13,10 +14,12 @@ clefSelect.addEventListener("change", function () {
 });
 
 const staveDisplayer = new StaveDisplayer(div, clef);
+let defaultRanger = new NoteRanger("c/4", "b/5");
 
 const notedisplayer = new EqualDurationNoteDisplayer(
   staveDisplayer.getContext(),
   staveDisplayer.getStave(),
+  defaultRanger,
   {
     subDuration: 4,
     voiceTime: {
@@ -27,7 +30,7 @@ const notedisplayer = new EqualDurationNoteDisplayer(
   }
 );
 
-const nQ = new NoteQuestion(q, 0);
+const nQ = new NoteQuestion(q, defaultRanger, 0);
 const stat = new Statistic();
 nQ.resultCb = (right) => {
   if (right) {
@@ -41,7 +44,7 @@ nQ.resultCb = (right) => {
 
 function startQuestion() {
   const note = notedisplayer.draw();
-  nQ.setAnswer(note[0], clef);
+  nQ.setAnswer(note[0]);
 }
 
 function start() {

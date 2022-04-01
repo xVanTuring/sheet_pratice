@@ -42,7 +42,7 @@ function nextNote(a: { noteName: NoteName; group: number }) {
  * @param from
  * @param to
  */
-function noteRange(from: string, to: string) {
+export function noteRange(from: string, to: string) {
   let range: string[] = [];
   let initial = {
     noteName: from.split("/")[0] as NoteName,
@@ -57,24 +57,4 @@ function noteRange(from: string, to: string) {
     initial = nextNote(initial);
   }
   return range;
-}
-const trebleNoteRange = noteRange("f/3", "e/6");
-function randomOneTrebleNote(): string {
-  const randomElement =
-    trebleNoteRange[Math.floor(Math.random() * trebleNoteRange.length)];
-  return randomElement;
-}
-const bassNoteRange = noteRange("f/1", "g/4");
-function randomOneBassNote(): string {
-  const randomElement =
-    bassNoteRange[Math.floor(Math.random() * bassNoteRange.length)];
-  return randomElement;
-}
-
-console.log(bassNoteRange, trebleNoteRange);
-export function randomOneNote(clef: "bass" | "treble") {
-  if (clef === "bass") {
-    return randomOneBassNote();
-  }
-  return randomOneTrebleNote();
 }
