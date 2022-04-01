@@ -1,5 +1,6 @@
 import { EquanDurationNoteDisplayer } from "./EqualDurationNoteDisplayer";
 import { NoteQuestion } from "./NoteQuestion";
+import { Statistic } from "./Statistics";
 import { StaveDisplayer } from "./StaveDisplayer";
 const clef: "treble" | "bass" = "treble";
 const div = document.getElementById("output") as HTMLDivElement;
@@ -20,8 +21,14 @@ const notedisplayer = new EquanDurationNoteDisplayer(
 
 const q = document.getElementById("question") as HTMLDivElement;
 let nQ = new NoteQuestion(q, 0);
-
+const stat = new Statistic();
 nQ.resultCb = (right) => {
+  if (right) {
+    stat.addRight();
+  } else {
+    stat.addWrong();
+  }
+  console.log(stat.getStatus());
   startQuestion();
 };
 

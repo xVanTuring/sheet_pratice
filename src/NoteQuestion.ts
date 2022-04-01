@@ -3,7 +3,8 @@ import { randomOneBassNote, randomOneTrebleNote } from "./utils";
 export class NoteQuestion {
   constructor(
     private readonly div: HTMLDivElement,
-    private readonly interval: number
+    private readonly interval: number,
+    private readonly resultDelay: number = 500
   ) {
     this.initAnswser();
   }
@@ -37,7 +38,7 @@ export class NoteQuestion {
 
     setTimeout(() => {
       this.notifyListener(result);
-    }, 1000);
+    }, this.resultDelay);
   }
 
   setAnswer(note: string, clef: string) {
