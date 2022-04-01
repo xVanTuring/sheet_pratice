@@ -1,7 +1,9 @@
 {
-    "compilerOptions": {
-      "experimentalDecorators": true,
-      "jsxImportSource": "preact"
-    }
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "jsxImportSource": "preact",
+    "strict": true,
+    "target": "ES2017",
+    "moduleResolution": "Node"
   }
-  
+}
