@@ -10,7 +10,7 @@ export class StaveDisplayer {
   ) {
     const renderer = new Renderer(this.div, Renderer.Backends.SVG);
 
-    renderer.resize(350, 180);
+    renderer.resize(500, 300);
 
     this.context = renderer.getContext() as SVGContext;
   }
@@ -22,7 +22,7 @@ export class StaveDisplayer {
       this.context.svg.removeChild(this.staveEle);
     }
     this.staveEle = this.context.openGroup();
-    this.stave = new Stave(0, 0, 300);
+    this.stave = new Stave(0, 80, 300);
     this.stave.addClef(this.clef).addTimeSignature(this.timeSignature);
     this.stave.setContext(this.context).draw();
     this.context.closeGroup();
