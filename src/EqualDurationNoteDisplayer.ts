@@ -20,7 +20,6 @@ export class EquanDurationNoteDisplayer extends NoteDisplayer {
     this.beatCount = totalDuration / (1 / this.voiceInfo.subDuration);
   }
   draw() {
-    console.log(this.beatCount);
     const noteChar = Array(this.beatCount)
       .fill(1)
       .map(() =>

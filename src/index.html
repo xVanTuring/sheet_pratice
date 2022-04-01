@@ -5,11 +5,54 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pratice</title>
+    <style>
+      body {
+        user-select: none;
+      }
+      #question {
+        display: flex;
+        justify-content: space-evenly;
+        margin: auto;
+        /* align-items: stretch; */
+        width: 50%;
+      }
+      .answer-btn {
+        border: 2px solid rgb(158, 158, 158);
+        padding: 8px;
+        margin: 4px;
+        width: 100%;
+        height: 50px;
+        border-radius: 8px;
+        line-height: 50px;
+        text-align: center;
+        transition: background-color 0.5s;
+        cursor: pointer;
+        font-size: 150%;
+      }
+      .answer-btn:hover {
+        background-color: rgb(158, 158, 158);
+      }
+      .right-answer{
+        background-color: rgb(104, 240, 138);
+      }
+      .right-answer:hover{
+        background-color: rgb(104, 240, 138);
+      }
+    </style>
   </head>
   <body>
-    <div style="display: flex; justify-content: center; width: 100%; align-items: center; margin-top: 0px;">
+    <div
+      style="
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        align-items: center;
+        margin-top: 0px;
+      "
+    >
       <div id="output"></div>
     </div>
+    <div id="question"></div>
   </body>
   <script src="./index.ts" type="module"></script>
 </html>

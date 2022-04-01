@@ -22,7 +22,7 @@ export class StaveDisplayer {
       this.context.svg.removeChild(this.staveEle);
     }
     this.staveEle = this.context.openGroup();
-    this.stave = new Stave(0, 80, 300);
+    this.stave = new Stave(0, 80, 480);
     this.stave.addClef(this.clef).addTimeSignature(this.timeSignature);
     this.stave.setContext(this.context).draw();
     this.context.closeGroup();
