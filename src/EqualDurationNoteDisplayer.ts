@@ -1,6 +1,6 @@
 import { Stave, StaveNote, SVGContext, VoiceTime } from "vexflow";
 import { NoteDisplayer } from "./NoteDisplayer";
-import { randomOneBassNote, randomOneTrebleNote } from "./utils";
+import { randomOneNote } from "./utils";
 
 export class EquanDurationNoteDisplayer extends NoteDisplayer {
   private beatCount: number;
@@ -22,11 +22,8 @@ export class EquanDurationNoteDisplayer extends NoteDisplayer {
   draw() {
     const noteChar = Array(this.beatCount)
       .fill(1)
-      .map(() =>
-        this.voiceInfo.clef === "bass"
-          ? randomOneBassNote()
-          : randomOneTrebleNote()
-      );
+      .map(() => randomOneNote(this.voiceInfo.clef));
+
     const notes = noteChar.map((note) => {
       return new StaveNote({
         clef: this.voiceInfo.clef,

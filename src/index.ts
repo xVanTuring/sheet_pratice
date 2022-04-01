@@ -20,7 +20,7 @@ const notedisplayer = new EquanDurationNoteDisplayer(
 );
 
 const q = document.getElementById("question") as HTMLDivElement;
-let nQ = new NoteQuestion(q, 0);
+const nQ = new NoteQuestion(q, 0);
 const stat = new Statistic();
 nQ.resultCb = (right) => {
   if (right) {

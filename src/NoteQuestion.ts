@@ -1,4 +1,4 @@
-import { randomOneBassNote, randomOneTrebleNote } from "./utils";
+import { randomOneNote } from "./utils";
 
 export class NoteQuestion {
   constructor(
@@ -41,12 +41,12 @@ export class NoteQuestion {
     }, this.resultDelay);
   }
 
-  setAnswer(note: string, clef: string) {
+  setAnswer(note: string, clef: "bass" | "treble") {
     let selections: string[] = [];
     for (let index = 0; index < 4; index++) {
       let _note = "";
       do {
-        _note = clef === "bass" ? randomOneBassNote() : randomOneTrebleNote();
+        _note = randomOneNote(clef);
       } while (_note === note || selections.includes(_note));
       selections.push(_note);
     }
