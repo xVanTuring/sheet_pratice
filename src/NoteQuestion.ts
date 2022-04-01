@@ -28,15 +28,18 @@ export class NoteQuestion {
   private rightIndex: number = 0;
 
   private answerBtnClicked(idx: number) {
+    if (this.disabled) return;
     if (this.timeout != null) clearTimeout(this.timeout);
     const result = idx === this.rightIndex;
     this.showAnswer(result);
   }
-
+  private disabled = false;
   private showAnswer(result: boolean) {
+    this.disabled = true;
     this.answerBtnList[this.rightIndex].classList.add("right-answer");
 
     setTimeout(() => {
+      this.disabled = false;
       this.notifyListener(result);
     }, this.resultDelay);
   }
