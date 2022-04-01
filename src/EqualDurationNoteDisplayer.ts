@@ -2,12 +2,12 @@ import { Stave, StaveNote, SVGContext, VoiceTime } from "vexflow";
 import { NoteDisplayer } from "./NoteDisplayer";
 import { randomOneNote } from "./utils";
 
-export class EquanDurationNoteDisplayer extends NoteDisplayer {
+export class EqualDurationNoteDisplayer extends NoteDisplayer {
   private beatCount: number;
   constructor(
     context: SVGContext,
     stave: Stave,
-    private readonly voiceInfo: {
+    private voiceInfo: {
       voiceTime: VoiceTime;
       subDuration: number;
       clef: "treble" | "bass";
@@ -18,6 +18,9 @@ export class EquanDurationNoteDisplayer extends NoteDisplayer {
       (1 / this.voiceInfo.voiceTime.beat_value) *
       this.voiceInfo.voiceTime.num_beats;
     this.beatCount = totalDuration / (1 / this.voiceInfo.subDuration);
+  }
+  setClef(clef: "treble" | "bass") {
+    this.voiceInfo.clef = clef;
   }
   draw() {
     const noteChar = Array(this.beatCount)

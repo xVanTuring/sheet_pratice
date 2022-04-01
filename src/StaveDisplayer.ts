@@ -5,7 +5,7 @@ export class StaveDisplayer {
   private stave: Stave | null = null;
   constructor(
     private readonly div: HTMLDivElement,
-    private readonly clef: "treble" | "bass" = "treble",
+    private clef: "treble" | "bass" = "treble",
     private readonly timeSignature = "4/4"
   ) {
     const renderer = new Renderer(this.div, Renderer.Backends.SVG);
@@ -13,6 +13,10 @@ export class StaveDisplayer {
     renderer.resize(150, 300);
 
     this.context = renderer.getContext() as SVGContext;
+    this.draw();
+  }
+  setClef(clef: "treble" | "bass") {
+    this.clef = clef;
   }
 
   private staveEle: SVGElement | null = null;

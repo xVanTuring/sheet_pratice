@@ -2,6 +2,9 @@ export class Statistic {
   constructor(private readonly questionDelay = 500) {}
   private total = 0;
   private right = 0;
+  private lastTime = 0;
+  private spend = 0;
+
   addRight() {
     this.right++;
     this.total++;
@@ -11,8 +14,7 @@ export class Statistic {
     this.total++;
     this.calcDuration();
   }
-  private lastTime = 0;
-  private spend = 0;
+
   calcDuration() {
     if (this.lastTime === 0) {
       this.lastTime = Date.now();
@@ -21,6 +23,7 @@ export class Statistic {
       this.lastTime = Date.now();
     }
   }
+
   getStatus() {
     return {
       total: this.total,
@@ -28,5 +31,10 @@ export class Statistic {
       spendTotal: this.spend,
       spendPer: this.spend / this.total,
     };
+  }
+
+  reset() {
+    this.right = 0;
+    this.total = 0;
   }
 }
