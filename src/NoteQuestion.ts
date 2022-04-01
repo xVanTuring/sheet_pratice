@@ -41,20 +41,28 @@ export class NoteQuestion {
   }
 
   setAnswer(note: string, clef: string) {
-    this.answerBtnList.forEach((btn) => {
+    let selections: string[] = [];
+    for (let index = 0; index < 4; index++) {
+      let _note = "";
+      do {
+        _note = clef === "bass" ? randomOneBassNote() : randomOneTrebleNote();
+      } while (_note === note || selections.includes(_note));
+      selections.push(_note);
+    }
+    this.answerBtnList.forEach((btn, idx) => {
       btn.classList.remove("right-answer");
-      btn.innerText =
-        clef === "bass"
-          ? randomOneBassNote().toUpperCase()
-          : randomOneTrebleNote().toUpperCase();
+      btn.innerText = selections[idx].toUpperCase();
     });
+
     const rightIndex = Math.floor(Math.random() * this.answerBtnList.length);
     const randomOne = this.answerBtnList[rightIndex];
     randomOne.innerText = note.toUpperCase();
     this.rightIndex = rightIndex;
-    this.timeout = setTimeout(() => {
-      this.showAnswer(false);
-    }, this.interval);
+    if (this.interval !== 0) {
+      this.timeout = setTimeout(() => {
+        this.showAnswer(false);
+      }, this.interval);
+    }
   }
   private timeout: number | null = null;
   private _resultCb: ((result: boolean) => void) | null = null;

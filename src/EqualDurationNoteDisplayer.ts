@@ -29,7 +29,7 @@ export class EquanDurationNoteDisplayer extends NoteDisplayer {
       );
     const notes = noteChar.map((note) => {
       return new StaveNote({
-        clef:this.voiceInfo.clef,
+        clef: this.voiceInfo.clef,
         keys: [note],
         duration: String(this.voiceInfo.subDuration),
       });

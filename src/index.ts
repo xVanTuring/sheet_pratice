@@ -9,9 +9,9 @@ const notedisplayer = new EquanDurationNoteDisplayer(
   staveDisplayer.getContext(),
   staveDisplayer.getStave(),
   {
-    subDuration: 1,
+    subDuration: 4,
     voiceTime: {
-      num_beats: 4,
+      num_beats: 1,
       beat_value: 4,
     },
     clef: clef,
@@ -19,10 +19,9 @@ const notedisplayer = new EquanDurationNoteDisplayer(
 );
 
 const q = document.getElementById("question") as HTMLDivElement;
-let nQ = new NoteQuestion(q, 2000);
+let nQ = new NoteQuestion(q, 0);
 
 nQ.resultCb = (right) => {
-  console.log(right ? "Right" : "Wrong");
   startQuestion();
 };
 
