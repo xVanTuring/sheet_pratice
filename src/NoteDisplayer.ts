@@ -6,7 +6,6 @@ import {
   Voice,
   VoiceTime
 } from "vexflow";
-import { randomOneTrebleNotes } from "./utils";
 
 export class NoteDisplayer {
   constructor(
@@ -21,12 +20,10 @@ export class NoteDisplayer {
       this.context.svg.removeChild(this.lastNote);
     }
     this.lastNote = this.context.openGroup();
-    let note = randomOneTrebleNotes();
     const voice = new Voice(voiceInfo.voiceTime);
     voice.addTickables(voiceInfo.notesList);
     new Formatter().joinVoices([voice]).format([voice]);
     voice.draw(this.context, this.stave);
     this.context.closeGroup();
-    return note;
   }
 }
