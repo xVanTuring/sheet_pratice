@@ -5,6 +5,7 @@
 * sequence question
 * statistics display
 * statistics pause and resume
+* dynamic replay weight update
 
 ### REFACTOR
 * [x] 不由NoteDisplayer产生问题

@@ -2,9 +2,7 @@ import { NoteProvider } from "./NoteProvider";
 import { randomItem } from "./utils";
 
 export class CoordinationNoteProvide implements NoteProvider {
-  constructor(
-    private readonly providers: { provider: NoteProvider; weight: number }[]
-  ) {
+  constructor(private providers: { provider: NoteProvider; weight: number }[]) {
     this.providers.sort((a, b) => a.weight - b.weight);
   }
   next(): string {
@@ -20,5 +18,9 @@ export class CoordinationNoteProvide implements NoteProvider {
   }
   available() {
     return this.providers.some((p) => p.provider.available() && p.weight > 0);
+  }
+
+  updateProvider(providers: { provider: NoteProvider; weight: number }[]) {
+    this.providers = providers;
   }
 }
