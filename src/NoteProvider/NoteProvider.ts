@@ -1,3 +1,4 @@
 export interface NoteProvider {
-    next(): string;
-  }
+  next(): string;
+  available(): boolean;
+}

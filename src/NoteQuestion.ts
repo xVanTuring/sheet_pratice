@@ -1,5 +1,5 @@
 import { NoteProvider } from "./NoteProvider/NoteProvider";
-
+type QuestionCallback = (key: string, result: boolean) => void;
 export class NoteQuestion {
   constructor(
     private readonly div: HTMLDivElement,
@@ -27,6 +27,7 @@ export class NoteQuestion {
     }
   }
   private rightIndex: number = 0;
+  private rightAnswer: string = "";
 
   private answerBtnClicked(idx: number) {
     if (this.disabled) return;
@@ -41,7 +42,7 @@ export class NoteQuestion {
 
     setTimeout(() => {
       this.disabled = false;
-      this.notifyListener(result);
+      this.notifyListener(this.rightAnswer, result);
     }, this.resultDelay);
   }
 
@@ -63,6 +64,7 @@ export class NoteQuestion {
     const randomOne = this.answerBtnList[rightIndex];
     randomOne.innerText = note.toUpperCase();
     this.rightIndex = rightIndex;
+    this.rightAnswer = note;
     if (this.interval !== 0) {
       this.timeout = setTimeout(() => {
         this.showAnswer(false);
@@ -70,14 +72,14 @@ export class NoteQuestion {
     }
   }
   private timeout: number | null = null;
-  private _resultCb: ((result: boolean) => void) | null = null;
+  private _resultCb: QuestionCallback | null = null;
 
-  public set resultCb(_resultCb: (result: boolean) => void) {
+  public set resultCb(_resultCb: QuestionCallback) {
     this._resultCb = _resultCb;
   }
-  private notifyListener(result: boolean) {
+  private notifyListener(key: string, result: boolean) {
     if (this._resultCb != null) {
-      this._resultCb(result);
+      this._resultCb(key, result);
     }
   }
 }

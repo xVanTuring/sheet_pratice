@@ -18,6 +18,10 @@ export class RangeNoteProvider implements NoteProvider {
       this.range[Math.floor(Math.random() * this.range.length)];
     return randomNote;
   }
+
+  available() {
+    return true;
+  }
 }
 export const bassNoteRanger = new RangeNoteProvider("f/1", "g/4");
 

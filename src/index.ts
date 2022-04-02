@@ -1,5 +1,7 @@
 import { EqualDurationNoteDisplayer } from "./EqualDurationNoteDisplayer";
+import { CoordinationNoteProvide } from "./NoteProvider/CoordinationNoteProvider";
 import { RangeNoteProvider } from "./NoteProvider/RangeNoteProvider";
+import { ReplayProvider } from "./NoteProvider/ReplayProvider";
 import { NoteQuestion } from "./NoteQuestion";
 import { Statistic } from "./Statistics";
 import { StaveDisplayer } from "./StaveDisplayer";
@@ -13,13 +15,25 @@ clefSelect.addEventListener("change", function () {
   start();
 });
 
+const replayP = new ReplayProvider(15);
+const defaultRanger = new RangeNoteProvider("c/4", "b/5");
+const coordNoteProvider = new CoordinationNoteProvide([
+  {
+    provider: replayP,
+    weight: 5,
+  },
+  {
+    provider: defaultRanger,
+    weight: 1,
+  },
+]);
+
 const staveDisplayer = new StaveDisplayer(div, clef);
-let defaultRanger = new RangeNoteProvider("c/4", "b/5");
 
 const notedisplayer = new EqualDurationNoteDisplayer(
   staveDisplayer.getContext(),
   staveDisplayer.getStave(),
-  defaultRanger,
+  coordNoteProvider,
   {
     subDuration: 4,
     voiceTime: {
@@ -32,13 +46,14 @@ const notedisplayer = new EqualDurationNoteDisplayer(
 
 const nQ = new NoteQuestion(q, defaultRanger, 0);
 const stat = new Statistic();
-nQ.resultCb = (right) => {
+nQ.resultCb = (key: string, right: boolean) => {
   if (right) {
+    replayP.addRight(key);
     stat.addRight();
   } else {
+    replayP.addWrong(key);
     stat.addWrong();
   }
-  console.log(stat.getStatus());
   startQuestion();
 };
 
