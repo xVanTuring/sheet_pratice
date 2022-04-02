@@ -60,10 +60,13 @@ export class NoteQuestion {
     this.disabled = true;
     this.answerBtnList[this.rightIndex].classList.add("right-answer");
     this.virtualKeyboard.highlightKey(this.rightAnswer);
-    setTimeout(() => {
-      this.disabled = false;
-      this.notifyListener(this.rightAnswer, result);
-    }, this.resultDelay);
+    setTimeout(
+      () => {
+        this.disabled = false;
+        this.notifyListener(this.rightAnswer, result);
+      },
+      result ? 300 : this.resultDelay
+    );
   }
 
   setAnswer(note: string) {
@@ -72,7 +75,7 @@ export class NoteQuestion {
       btn.classList.remove("right-answer");
       btn.innerText = selections[idx].toUpperCase();
     });
-    this.virtualKeyboard.removeKeyHighlight()
+    this.virtualKeyboard.removeKeyHighlight();
 
     const rightIndex = Math.floor(Math.random() * this.answerBtnList.length);
     const randomOne = this.answerBtnList[rightIndex];
