@@ -1,4 +1,5 @@
 import {
+  Beam,
   Formatter,
   Stave,
   StaveNote,
@@ -20,10 +21,15 @@ export class NoteDisplayer {
       this.context.svg.removeChild(this.lastNote);
     }
     this.lastNote = this.context.openGroup();
+
     const voice = new Voice(voiceInfo.voiceTime);
     voice.addTickables(voiceInfo.notesList);
     new Formatter().joinVoices([voice]).format([voice]);
+    let beams = Beam.generateBeams(voiceInfo.notesList);
     voice.draw(this.context, this.stave);
+    beams.forEach((beam) => {
+      beam.setContext(this.context).draw();
+    });
     this.context.closeGroup();
   }
 }

@@ -11,7 +11,7 @@ export class StaveDisplayer {
   ) {
     this.renderer = new Renderer(this.div, Renderer.Backends.SVG);
 
-    this.renderer.resize(this.width + 80, 300);
+    this.renderer.resize(this.width + 50, 300);
 
     this.context = this.renderer.getContext() as SVGContext;
     this.draw();

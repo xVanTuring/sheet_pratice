@@ -1,8 +1,8 @@
 import { EqualDurationNoteDisplayer } from "./EqualDurationNoteDisplayer";
 import { CoordinationNoteProvide } from "./NoteProvider/CoordinationNoteProvider";
 import {
-    bassNoteRanger,
-    trebleNoteRanger
+  bassNoteRanger,
+  trebleNoteRanger
 } from "./NoteProvider/RangeNoteProvider";
 import { ReplayProvider } from "./NoteProvider/ReplayProvider";
 import { NoteQuestion } from "./NoteQuestion";
@@ -14,6 +14,7 @@ const DurationToSize = {
   2: 130,
   4: 150,
   8: 300,
+  16: 520,
 };
 export class NotePratice {
   private clef: "treble" | "bass" = "treble";
