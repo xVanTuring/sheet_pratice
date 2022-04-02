@@ -9,11 +9,16 @@ import { NoteQuestion } from "./NoteQuestion";
 import { QuestionProvider } from "./QuestionProvider";
 import { Statistic } from "./Statistics";
 import { StaveDisplayer } from "./StaveDisplayer";
-
+const DurationToSize = {
+  1: 110,
+  2: 130,
+  4: 150,
+  8: 300,
+};
 export class NotePratice {
   private clef: "treble" | "bass" = "treble";
   private voidInfo = {
-    subDuration: 4,
+    subDuration: 1,
     voiceTime: {
       num_beats: 4,
       beat_value: 4,
@@ -42,7 +47,11 @@ export class NotePratice {
   private notedisplayer: EqualDurationNoteDisplayer;
   private noteQuestion: NoteQuestion;
 
-  constructor(staveEle: HTMLDivElement, questionEle: HTMLDivElement) {
+  constructor(
+    staveEle: HTMLDivElement,
+    questionEle: HTMLDivElement,
+    private indexElement: HTMLDivElement
+  ) {
     this.staveDisplayer = new StaveDisplayer(staveEle, this.clef);
     this.notedisplayer = new EqualDurationNoteDisplayer(
       this.staveDisplayer.getContext(),
@@ -84,17 +93,32 @@ export class NotePratice {
   }
 
   private question: string[] = [];
+  private index = 0;
 
   continueSeq() {
     if (this.question.length === 0) {
       this.resetQuestion();
     }
+    this.index++;
     const note = this.question.shift()!;
     this.noteQuestion.setAnswer(note);
+    this.indexElement.innerText = `No. ${this.index}`;
   }
 
   resetQuestion() {
+    this.index = 0;
     this.question = this.questionProvider.nextQuestion();
     this.notedisplayer.draw(this.question);
+  }
+
+  resetWidth(width: number) {
+    this.staveDisplayer.setWidth(width);
+  }
+
+  setSubDuration(subDuration: 1 | 2 | 4 | 8) {
+    this.voidInfo.subDuration = subDuration;
+    this.resetWidth(DurationToSize[subDuration]);
+    this.question.length = 0;
+    this.continueSeq();
   }
 }

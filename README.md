@@ -2,7 +2,7 @@
 
 ### TODO:
 * ui range selection
-* sequence question
+* [x] sequence question
 * statistics display
 * statistics pause and resume
 * dynamic replay weight update
