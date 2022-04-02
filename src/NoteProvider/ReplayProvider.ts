@@ -3,9 +3,13 @@ import { randomItem } from "./utils";
 
 export class ReplayProvider implements NoteProvider {
   private map: Map<string, number>;
+  private bassMap: Map<string, number>;
+  private trebleMap: Map<string, number>;
 
   constructor(private readonly size = 10) {
-    this.map = new Map();
+    this.bassMap = new Map();
+    this.trebleMap = new Map();
+    this.map = this.trebleMap;
   }
 
   public addWrong(note: string) {
@@ -55,5 +59,13 @@ export class ReplayProvider implements NoteProvider {
 
   available() {
     return this.map.size > 0;
+  }
+
+  setClef(clef: "bass" | "treble") {
+    if (clef === "bass") {
+      this.map = this.bassMap;
+    } else {
+      this.map = this.trebleMap;
+    }
   }
 }

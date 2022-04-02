@@ -75,6 +75,7 @@ export class NotePratice {
   setClef(clef: "treble" | "bass") {
     if (clef !== this.clef) {
       this.clef = clef;
+      this.replayProvider.setClef(clef);
       this.coordNoteProvider.updateProvider([
         {
           provider: this.replayProvider,
