@@ -659,6 +659,11 @@
   resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
   integrity sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==
 
+"@types/webmidi@^2.0.6":
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/@types/webmidi/-/webmidi-2.0.6.tgz#c9b1428bbc5d5f49cc6201eae0dc5e2b3fd23e0e"
+  integrity sha512-sfS0A5IryqmBrUpcGPipEPeFdpqmZzP6b6lZFxHKgz5n2Vhzh4yJ5P2TvoDUhDjqJyv0Y25ng0Qodgo2Vu08ug==
+
 abortcontroller-polyfill@^1.1.9:
   version "1.7.3"
   resolved "https://registry.yarnpkg.com/abortcontroller-polyfill/-/abortcontroller-polyfill-1.7.3.tgz#1b5b487bd6436b5b764fd52a612509702c3144b5"
