@@ -90,7 +90,9 @@ export class NotePratice {
       this.staveDisplayer.draw();
       this.notedisplayer.setClef(clef);
       this.stat.reset();
-      this.resetQuestion();
+      
+      this.question.length = 0;
+      this.continueSeq();
     }
   }
 
