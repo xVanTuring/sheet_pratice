@@ -1,9 +1,8 @@
-import { NoteProvider } from "./NoteProvider/NoteProvider";
+import { noteNear, shuffle } from "./utils";
 type QuestionCallback = (key: string, result: boolean) => void;
 export class NoteQuestion {
   constructor(
     private readonly div: HTMLDivElement,
-    private readonly randomNote: NoteProvider,
     private readonly interval: number,
     private readonly resultDelay: number = 500
   ) {
@@ -35,7 +34,9 @@ export class NoteQuestion {
     const result = idx === this.rightIndex;
     this.showAnswer(result);
   }
+
   private disabled = false;
+
   private showAnswer(result: boolean) {
     this.disabled = true;
     this.answerBtnList[this.rightIndex].classList.add("right-answer");
@@ -47,14 +48,7 @@ export class NoteQuestion {
   }
 
   setAnswer(note: string) {
-    let selections: string[] = [];
-    for (let index = 0; index < 4; index++) {
-      let _note = "";
-      do {
-        _note = this.randomNote.next();
-      } while (_note === note || selections.includes(_note));
-      selections.push(_note);
-    }
+    const selections: string[] = shuffle(noteNear(note, 4));
     this.answerBtnList.forEach((btn, idx) => {
       btn.classList.remove("right-answer");
       btn.innerText = selections[idx].toUpperCase();

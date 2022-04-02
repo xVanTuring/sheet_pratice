@@ -3,6 +3,7 @@ import { CoordinationNoteProvide } from "./NoteProvider/CoordinationNoteProvider
 import { RangeNoteProvider } from "./NoteProvider/RangeNoteProvider";
 import { ReplayProvider } from "./NoteProvider/ReplayProvider";
 import { NoteQuestion } from "./NoteQuestion";
+import { QuestionProvider } from "./QuestionProvider";
 import { Statistic } from "./Statistics";
 import { StaveDisplayer } from "./StaveDisplayer";
 let clef: "treble" | "bass" = "treble";
@@ -27,13 +28,20 @@ const coordNoteProvider = new CoordinationNoteProvide([
     weight: 1,
   },
 ]);
+const questionProvider = new QuestionProvider(coordNoteProvider, {
+  subDuration: 4,
+  voiceTime: {
+    num_beats: 1,
+    beat_value: 4,
+  },
+  clef: clef,
+});
 
 const staveDisplayer = new StaveDisplayer(div, clef);
 
 const notedisplayer = new EqualDurationNoteDisplayer(
   staveDisplayer.getContext(),
   staveDisplayer.getStave(),
-  coordNoteProvider,
   {
     subDuration: 4,
     voiceTime: {
@@ -44,7 +52,7 @@ const notedisplayer = new EqualDurationNoteDisplayer(
   }
 );
 
-const nQ = new NoteQuestion(q, defaultRanger, 0);
+const nQ = new NoteQuestion(q, 0);
 const stat = new Statistic();
 nQ.resultCb = (key: string, right: boolean) => {
   if (right) {
@@ -58,7 +66,8 @@ nQ.resultCb = (key: string, right: boolean) => {
 };
 
 function startQuestion() {
-  const note = notedisplayer.draw();
+  const note = questionProvider.nextQuestion();
+  notedisplayer.draw(note);
   nQ.setAnswer(note[0]);
 }
 
