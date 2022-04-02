@@ -10,4 +10,4 @@ clefSelect.addEventListener("change", function () {
   const clef = this.value as "treble" | "bass";
   notePratice.setClef(clef);
 });
-notePratice.startQuestion();
+notePratice.continueSeq();

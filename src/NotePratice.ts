@@ -15,7 +15,7 @@ export class NotePratice {
   private voidInfo = {
     subDuration: 4,
     voiceTime: {
-      num_beats: 1,
+      num_beats: 4,
       beat_value: 4,
     },
     clef: this.clef,
@@ -58,9 +58,8 @@ export class NotePratice {
         this.replayProvider.addWrong(key);
         this.stat.addWrong();
       }
-      this.startQuestion();
+      this.continueSeq();
     };
-    this.startQuestion();
   }
 
   setClef(clef: "treble" | "bass") {
@@ -80,13 +79,22 @@ export class NotePratice {
       this.staveDisplayer.draw();
       this.notedisplayer.setClef(clef);
       this.stat.reset();
-      this.startQuestion();
+      this.resetQuestion();
     }
   }
 
-  startQuestion() {
-    const note = this.questionProvider.nextQuestion();
-    this.notedisplayer.draw(note);
-    this.noteQuestion.setAnswer(note[0]);
+  private question: string[] = [];
+
+  continueSeq() {
+    if (this.question.length === 0) {
+      this.resetQuestion();
+    }
+    const note = this.question.shift()!;
+    this.noteQuestion.setAnswer(note);
+  }
+
+  resetQuestion() {
+    this.question = this.questionProvider.nextQuestion();
+    this.notedisplayer.draw(this.question);
   }
 }
