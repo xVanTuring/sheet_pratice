@@ -1,0 +1,64 @@
+$scaler: 0.65;
+$piano-white-height: 12em * $scaler * 1.2;
+$piano-white-width: 3em * $scaler;
+
+$piano-black-height: 8em * $scaler * 1.2;
+$piano-black-width: 2em * $scaler;
+$key-margin: -1em * $scaler;
+#piano-container {
+  margin: 0;
+  position: relative;
+  // max-width: 90%;
+  width: 100%;
+}
+
+.piano > li {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: relative;
+  float: left;
+}
+
+.piano > .white {
+  height: $piano-white-height;
+  width: $piano-white-width;
+  z-index: 1;
+  border: 1px solid #bbb;
+  background: rgb(236, 236, 236);
+}
+
+.piano > .black {
+  height: $piano-black-height;
+  width: $piano-black-width;
+  margin: 0 0 0 $key-margin;
+  z-index: 2;
+  border: 1px solid #000;
+  background: black;
+}
+
+.piano > .active {
+  border: 1px solid grey;
+  background: grey;
+}
+
+.piano > .b,
+.piano > .e,
+.piano > .g,
+.piano > .d,
+.piano > .a {
+  margin: 0 0 0 $key-margin;
+}
+.piano > .white[data-note="c4"] {
+  background-color: rgb(204, 204, 204);
+}
+.piano > .white:hover {
+  border: 1px solid grey;
+  background: grey;
+}
+
+.piano > .black:hover {
+  border: 1px solid grey;
+  background: grey;
+}
