@@ -1,6 +1,7 @@
-import { noteRange } from "./utils";
+import { noteRange } from "../utils";
+import { NoteProvider } from "./NoteProvider";
 
-export class NoteRanger {
+export class RangeNoteProvider implements NoteProvider {
   range!: string[];
   constructor(private start: string, private end: string) {
     this.setRange(this.start, this.end);
@@ -18,6 +19,6 @@ export class NoteRanger {
     return randomNote;
   }
 }
-export const bassNoteRanger = new NoteRanger("f/1", "g/4");
+export const bassNoteRanger = new RangeNoteProvider("f/1", "g/4");
 
-export const trebleNoteRanger = new NoteRanger("f/3", "e/6");
+export const trebleNoteRanger = new RangeNoteProvider("f/3", "e/6");

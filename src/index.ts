@@ -1,6 +1,6 @@
 import { EqualDurationNoteDisplayer } from "./EqualDurationNoteDisplayer";
+import { RangeNoteProvider } from "./NoteProvider/RangeNoteProvider";
 import { NoteQuestion } from "./NoteQuestion";
-import { NoteRanger } from "./NoteRanger";
 import { Statistic } from "./Statistics";
 import { StaveDisplayer } from "./StaveDisplayer";
 let clef: "treble" | "bass" = "treble";
@@ -14,7 +14,7 @@ clefSelect.addEventListener("change", function () {
 });
 
 const staveDisplayer = new StaveDisplayer(div, clef);
-let defaultRanger = new NoteRanger("c/4", "b/5");
+let defaultRanger = new RangeNoteProvider("c/4", "b/5");
 
 const notedisplayer = new EqualDurationNoteDisplayer(
   staveDisplayer.getContext(),

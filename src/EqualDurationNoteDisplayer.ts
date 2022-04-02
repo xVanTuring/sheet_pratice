@@ -1,13 +1,13 @@
 import { Stave, StaveNote, SVGContext, VoiceTime } from "vexflow";
 import { NoteDisplayer } from "./NoteDisplayer";
-import { NoteRanger } from "./NoteRanger";
+import { NoteProvider } from "./NoteProvider/NoteProvider";
 
 export class EqualDurationNoteDisplayer extends NoteDisplayer {
   private beatCount: number;
   constructor(
     context: SVGContext,
     stave: Stave,
-    private readonly randomNote: NoteRanger,
+    private readonly randomNote: NoteProvider,
     private voiceInfo: {
       voiceTime: VoiceTime;
       subDuration: number;

@@ -1,9 +1,9 @@
-import { NoteRanger } from "./NoteRanger";
+import { NoteProvider } from "./NoteProvider/NoteProvider";
 
 export class NoteQuestion {
   constructor(
     private readonly div: HTMLDivElement,
-    private readonly randomNote: NoteRanger,
+    private readonly randomNote: NoteProvider,
     private readonly interval: number,
     private readonly resultDelay: number = 500
   ) {
