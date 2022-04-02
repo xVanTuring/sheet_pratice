@@ -42,7 +42,6 @@ export class VirtualKeyboard {
   }
   setEvents() {
     const elems = document.querySelectorAll("#" + this.elemID + " li ");
-    console.log(elems);
     elems.forEach((elem) => {
       elem.addEventListener("click", (event) => {
         let _note = (event.target as HTMLLIElement).dataset.note!;
@@ -107,6 +106,22 @@ export class VirtualKeyboard {
             )}"></li>`;
 
     return octaveHTML;
+  }
+
+  highlightKey(note: string) {
+    const noteInData = note.replace("/", "");
+    let key = document.querySelector(
+      `#${this.elemID} li[data-note="${noteInData}"]`
+    );
+    if (key != null) {
+      key.classList.add("highlight");
+    }
+  }
+  removeKeyHighlight() {
+    let keys = document.querySelectorAll(`#${this.elemID} li.highlight`);
+    keys.forEach((ele) => {
+      ele.classList.remove("highlight");
+    });
   }
 }
 

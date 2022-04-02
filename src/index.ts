@@ -21,12 +21,3 @@ durationSelect.addEventListener("change", function () {
   notePratice.setSubDuration(duration);
 });
 notePratice.continueSeq();
-
-function onPianoPressed(note: string) {
-  console.log(note);
-}
-let p = new VirtualKeyboard("piano", onPianoPressed, {
-  octaveBegin: 1,
-  octaves: 7,
-});
-p.createPiano();

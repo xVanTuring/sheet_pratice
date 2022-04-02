@@ -2,7 +2,7 @@ import { EqualDurationNoteDisplayer } from "./EqualDurationNoteDisplayer";
 import { CoordinationNoteProvide } from "./NoteProvider/CoordinationNoteProvider";
 import {
   bassNoteRanger,
-  trebleNoteRanger
+  trebleNoteRanger,
 } from "./NoteProvider/RangeNoteProvider";
 import { ReplayProvider } from "./NoteProvider/ReplayProvider";
 import { NoteQuestion } from "./NoteQuestion";
@@ -59,17 +59,18 @@ export class NotePratice {
       this.staveDisplayer.getStave(),
       this.voidInfo
     );
-    this.noteQuestion = new NoteQuestion(questionEle, 0);
-    this.noteQuestion.resultCb = (key: string, right: boolean) => {
-      if (right) {
-        this.replayProvider.addRight(key);
-        this.stat.addRight();
-      } else {
-        this.replayProvider.addWrong(key);
-        this.stat.addWrong();
-      }
-      this.continueSeq();
-    };
+    this.noteQuestion = new NoteQuestion(questionEle, "piano-keyboard", 0);
+    this.noteQuestion.resultCb = this.onAnswered.bind(this);
+  }
+  private onAnswered(key: string, right: boolean) {
+    if (right) {
+      this.replayProvider.addRight(key);
+      this.stat.addRight();
+    } else {
+      this.replayProvider.addWrong(key);
+      this.stat.addWrong();
+    }
+    this.continueSeq();
   }
 
   setClef(clef: "treble" | "bass") {
@@ -90,7 +91,7 @@ export class NotePratice {
       this.staveDisplayer.draw();
       this.notedisplayer.setClef(clef);
       this.stat.reset();
-      
+
       this.question.length = 0;
       this.continueSeq();
     }
