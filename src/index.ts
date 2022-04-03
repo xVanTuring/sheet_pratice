@@ -1,6 +1,4 @@
-import { VirtualKeyboard } from "./VirtualKeyboard";
-import { NotePratice } from "./NotePratice";
-import { MidiInput } from "./Input/MidiInput";
+import { NotePratice } from "./NoteNamePratice/NotePratice";
 
 const div = document.getElementById("output") as HTMLDivElement;
 const question = document.getElementById("question") as HTMLDivElement;

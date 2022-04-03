@@ -1,25 +1,13 @@
-import { noteNear, shuffle } from "./utils";
 import { VirtualKeyboard } from "./VirtualKeyboard";
 type QuestionCallback = (key: string, result: boolean) => void;
 export class NoteQuestion {
-  virtualKeyboard: VirtualKeyboard;
   constructor(
     private readonly div: HTMLDivElement,
-    private readonly pianoId: string,
-    private readonly interval: number,
+    private readonly virtualKeyboard: VirtualKeyboard | null = null,
+    private readonly interval: number = 0,
     private readonly resultDelay: number = 1000
   ) {
     this.initAnswser();
-
-    this.virtualKeyboard = new VirtualKeyboard(
-      this.pianoId,
-      this.onPianoPressed.bind(this),
-      {
-        octaveBegin: 1,
-        octaves: 7,
-      }
-    );
-    this.virtualKeyboard.createPiano();
   }
   private answerBtnList!: Array<HTMLDivElement>;
 
@@ -47,7 +35,7 @@ export class NoteQuestion {
     const result = idx === this.rightIndex;
     this.showAnswer(result);
   }
-  private onPianoPressed(note: string) {
+  public extenalInput(note: string) {
     if (this.disabled) return;
     if (this.timeout != null) clearTimeout(this.timeout);
     const result = note === this.rightAnswer;
@@ -59,7 +47,7 @@ export class NoteQuestion {
   private showAnswer(result: boolean) {
     this.disabled = true;
     this.answerBtnList[this.rightIndex].classList.add("right-answer");
-    this.virtualKeyboard.highlightKey(this.rightAnswer);
+    this.virtualKeyboard?.highlightKey(this.rightAnswer);
     setTimeout(
       () => {
         this.disabled = false;
@@ -69,19 +57,18 @@ export class NoteQuestion {
     );
   }
 
-  setAnswer(note: string) {
-    const selections: string[] = shuffle(noteNear(note, 4));
+  setAnswer(answer: string, selections: string[]) {
     this.answerBtnList.forEach((btn, idx) => {
       btn.classList.remove("right-answer");
       btn.innerText = selections[idx].toUpperCase();
     });
-    this.virtualKeyboard.removeKeyHighlight();
+    this.virtualKeyboard?.removeKeyHighlight();
 
     const rightIndex = Math.floor(Math.random() * this.answerBtnList.length);
     const randomOne = this.answerBtnList[rightIndex];
-    randomOne.innerText = note.toUpperCase();
+    randomOne.innerText = answer.toUpperCase();
     this.rightIndex = rightIndex;
-    this.rightAnswer = note;
+    this.rightAnswer = answer;
     if (this.interval !== 0) {
       this.timeout = setTimeout(() => {
         this.showAnswer(false);

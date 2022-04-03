@@ -1,5 +1,5 @@
 import { VoiceTime } from "vexflow";
-import { NoteProvider } from "./NoteProvider/NoteProvider";
+import { NoteProvider } from "../NoteProvider/NoteProvider";
 
 export class QuestionProvider {
   constructor(

@@ -1,14 +1,16 @@
-import { EqualDurationNoteDisplayer } from "./EqualDurationNoteDisplayer";
-import { CoordinationNoteProvide } from "./NoteProvider/CoordinationNoteProvider";
+import { EqualDurationNoteDisplayer } from "../EqualDurationNoteDisplayer";
+import { CoordinationNoteProvide } from "../NoteProvider/CoordinationNoteProvider";
 import {
   bassNoteRanger,
   trebleNoteRanger,
-} from "./NoteProvider/RangeNoteProvider";
-import { ReplayProvider } from "./NoteProvider/ReplayProvider";
-import { NoteQuestion } from "./NoteQuestion";
+} from "../NoteProvider/RangeNoteProvider";
+import { ReplayProvider } from "../NoteProvider/ReplayProvider";
+import { NoteQuestion } from "../NoteQuestion";
 import { QuestionProvider } from "./QuestionProvider";
-import { Statistic } from "./Statistics";
-import { StaveDisplayer } from "./StaveDisplayer";
+import { Statistic } from "../Statistics";
+import { StaveDisplayer } from "../StaveDisplayer";
+import { noteNear, shuffle } from "../utils";
+import { VirtualKeyboard } from "../VirtualKeyboard";
 const DurationToSize = {
   1: 110,
   2: 130,
@@ -26,7 +28,7 @@ export class NotePratice {
     },
     clef: this.clef,
   };
-  private replayProvider = new ReplayProvider(15);
+  private replayProvider = new ReplayProvider();
   private coordNoteProvider = new CoordinationNoteProvide([
     {
       provider: this.replayProvider,
@@ -47,6 +49,7 @@ export class NotePratice {
   private staveDisplayer: StaveDisplayer;
   private notedisplayer: EqualDurationNoteDisplayer;
   private noteQuestion: NoteQuestion;
+  private virtualKeyboard: VirtualKeyboard;
 
   constructor(
     staveEle: HTMLDivElement,
@@ -59,9 +62,24 @@ export class NotePratice {
       this.staveDisplayer.getStave(),
       this.voidInfo
     );
-    this.noteQuestion = new NoteQuestion(questionEle, "piano-keyboard", 0);
+
+    this.virtualKeyboard = new VirtualKeyboard(
+      "piano-keyboard",
+      this.onPianoPressed.bind(this),
+      {
+        octaveBegin: 1,
+        octaves: 7,
+      }
+    );
+    this.virtualKeyboard.createPiano();
+    this.noteQuestion = new NoteQuestion(questionEle, this.virtualKeyboard);
     this.noteQuestion.resultCb = this.onAnswered.bind(this);
   }
+
+  private onPianoPressed(note: string) {
+    this.noteQuestion.extenalInput(note);
+  }
+
   private onAnswered(key: string, right: boolean) {
     if (right) {
       this.replayProvider.addRight(key);
@@ -106,7 +124,8 @@ export class NotePratice {
     }
     this.index++;
     const note = this.question.shift()!;
-    this.noteQuestion.setAnswer(note);
+    const selections: string[] = shuffle(noteNear(note, 4));
+    this.noteQuestion.setAnswer(note, selections);
     this.indexElement.innerText = `No. ${this.index}`;
   }
 
