@@ -1,0 +1,34 @@
+html {
+  background: rgb(231, 231, 231);
+}
+body {
+  user-select: none;
+}
+#question {
+  display: flex;
+  justify-content: space-evenly;
+  margin: auto;
+  width: 50%;
+}
+.answer-btn {
+  border: 2px solid rgb(158, 158, 158);
+  padding: 8px;
+  margin: 4px;
+  width: 100%;
+  height: 50px;
+  border-radius: 8px;
+  line-height: 50px;
+  text-align: center;
+  transition: background-color 0.5s;
+  cursor: pointer;
+  font-size: 150%;
+}
+.answer-btn:hover {
+  background-color: rgb(158, 158, 158);
+}
+.right-answer {
+  background-color: rgb(104, 240, 138);
+}
+.right-answer:hover {
+  background-color: rgb(104, 240, 138);
+}

@@ -5,7 +5,7 @@ import {
   trebleNoteRanger,
 } from "../NoteProvider/RangeNoteProvider";
 import { ReplayProvider } from "../NoteProvider/ReplayProvider";
-import { NoteQuestion } from "../NoteQuestion";
+import { Question } from "../NoteQuestion";
 import { QuestionProvider } from "./QuestionProvider";
 import { Statistic } from "../Statistics";
 import { StaveDisplayer } from "../StaveDisplayer";
@@ -48,7 +48,7 @@ export class NotePratice {
 
   private staveDisplayer: StaveDisplayer;
   private notedisplayer: EqualDurationNoteDisplayer;
-  private noteQuestion: NoteQuestion;
+  private noteQuestion: Question;
   private virtualKeyboard: VirtualKeyboard;
 
   constructor(
@@ -72,7 +72,7 @@ export class NotePratice {
       }
     );
     this.virtualKeyboard.createPiano();
-    this.noteQuestion = new NoteQuestion(questionEle, this.virtualKeyboard);
+    this.noteQuestion = new Question(questionEle, this.virtualKeyboard);
     this.noteQuestion.resultCb = this.onAnswered.bind(this);
   }
 
@@ -124,7 +124,10 @@ export class NotePratice {
     }
     this.index++;
     const note = this.question.shift()!;
-    const selections: string[] = shuffle(noteNear(note, 4));
+    const selections: string[] = shuffle(
+      shuffle(noteNear(note, 4)).slice(0, 3).concat(note)
+    );
+
     this.noteQuestion.setAnswer(note, selections);
     this.indexElement.innerText = `No. ${this.index}`;
   }

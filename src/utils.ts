@@ -1,5 +1,5 @@
 const noteOrder: NoteName[] = ["c", "d", "e", "f", "g", "a", "b"];
-type NoteName = "c" | "d" | "e" | "f" | "g" | "a" | "b";
+export type NoteName = "c" | "d" | "e" | "f" | "g" | "a" | "b";
 function nextNoteName(note: NoteName): NoteName {
   if (note === "g") {
     return "a";
@@ -37,13 +37,35 @@ function compareNote(
   }
   return -1;
 }
-function nextNote(a: { noteName: NoteName; group: number }) {
+export function nextNoteBy(
+  a: { noteName: NoteName; group: number },
+  by: number
+) {
+  let _iter = by - 1;
+  while (_iter) {
+    a = nextNote(a);
+    _iter--;
+  }
+  return a
+}
+export function preNoteBy(
+  a: { noteName: NoteName; group: number },
+  by: number
+) {
+  let _iter = by - 1;
+  while (_iter) {
+    a = preNote(a);
+    _iter--;
+  }
+  return a
+}
+export function nextNote(a: { noteName: NoteName; group: number }) {
   return {
     noteName: nextNoteName(a.noteName),
     group: a.noteName === "b" ? a.group + 1 : a.group,
   };
 }
-function preNote(a: { noteName: NoteName; group: number }) {
+export function preNote(a: { noteName: NoteName; group: number }) {
   return {
     noteName: preNoteName(a.noteName),
     group: a.noteName === "c" ? a.group - 1 : a.group,

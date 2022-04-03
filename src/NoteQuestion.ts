@@ -1,9 +1,10 @@
 import { VirtualKeyboard } from "./VirtualKeyboard";
 type QuestionCallback = (key: string, result: boolean) => void;
-export class NoteQuestion {
+export class Question {
   constructor(
     private readonly div: HTMLDivElement,
     private readonly virtualKeyboard: VirtualKeyboard | null = null,
+    private readonly answerSize: number = 4,
     private readonly interval: number = 0,
     private readonly resultDelay: number = 1000
   ) {
@@ -12,12 +13,10 @@ export class NoteQuestion {
   private answerBtnList!: Array<HTMLDivElement>;
 
   private initAnswser() {
-    this.answerBtnList = [
-      document.createElement("div"),
-      document.createElement("div"),
-      document.createElement("div"),
-      document.createElement("div"),
-    ];
+    this.answerBtnList = [];
+    for (let index = 0; index < this.answerSize; index++) {
+      this.answerBtnList.push(document.createElement("div"));
+    }
     for (const [i, htmlEle] of this.answerBtnList.entries()) {
       htmlEle.classList.add("answer-btn");
       this.div.appendChild(htmlEle);
@@ -64,9 +63,7 @@ export class NoteQuestion {
     });
     this.virtualKeyboard?.removeKeyHighlight();
 
-    const rightIndex = Math.floor(Math.random() * this.answerBtnList.length);
-    const randomOne = this.answerBtnList[rightIndex];
-    randomOne.innerText = answer.toUpperCase();
+    const rightIndex = selections.indexOf(answer);
     this.rightIndex = rightIndex;
     this.rightAnswer = answer;
     if (this.interval !== 0) {
@@ -75,6 +72,7 @@ export class NoteQuestion {
       }, this.interval);
     }
   }
+
   private timeout: number | null = null;
   private _resultCb: QuestionCallback | null = null;
 
