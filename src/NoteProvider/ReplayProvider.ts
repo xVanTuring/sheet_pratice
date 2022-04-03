@@ -1,12 +1,24 @@
 import { NoteProvider } from "./NoteProvider";
 import { randomItem } from "./utils";
-
+export interface ReplayProviderConfig {
+  // 词典大小
+  size: number;
+  // 0-1答对时调整值
+  learnRate: number;
+  keepNegetaive: boolean;
+}
 export class ReplayProvider implements NoteProvider {
   private map: Map<string, number>;
   private bassMap: Map<string, number>;
   private trebleMap: Map<string, number>;
 
-  constructor(private readonly size = 10) {
+  constructor(
+    private readonly config: ReplayProviderConfig = {
+      size: 0,
+      learnRate: 0.5,
+      keepNegetaive: false,
+    }
+  ) {
     this.bassMap = new Map();
     this.trebleMap = new Map();
     this.map = this.trebleMap;
@@ -21,27 +33,38 @@ export class ReplayProvider implements NoteProvider {
   }
   public addRight(note: string) {
     if (this.map.has(note)) {
-      if (this.map.get(note)! - 1 === 0) {
+      if (!this.config.keepNegetaive && this.map.get(note)! - 1 <= 0) {
         this.map.delete(note);
       } else {
-        this.map.set(note, this.map.get(note)! - 1);
+        this.map.set(note, this.map.get(note)! - 0.5);
       }
+    } else if (this.config.keepNegetaive) {
+      this.map.set(note, -0.5);
     }
   }
 
-  private addNewNote(note: string) {
-    if (this.map.size >= this.size) {
-      // find minial and remove
-      let key = "";
-      let _small = Infinity;
-      for (const [k, v] of this.map.entries()) {
-        if (v <= _small) {
-          _small = v;
-          key = k;
-        }
+  private deleteMinialKey() {
+    // find minial and remove
+    let key = "";
+    let _small = Infinity;
+    for (const [k, v] of this.map.entries()) {
+      if (v <= _small) {
+        _small = v;
+        key = k;
       }
-      this.map.delete(key);
     }
+    this.map.delete(key);
+  }
+
+  private shouldDeleteNote() {
+    return this.config.size !== 0 && this.map.size >= this.config.size;
+  }
+
+  private addNewNote(note: string) {
+    if (this.shouldDeleteNote()) {
+      this.deleteMinialKey();
+    }
+
     this.map.set(note, 1);
   }
 
@@ -53,7 +76,6 @@ export class ReplayProvider implements NoteProvider {
         weight: v,
       });
     });
-    console.log("Hit Replay");
     return randomItem(fullList).note;
   }
 
