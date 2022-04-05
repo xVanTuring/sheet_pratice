@@ -6,7 +6,7 @@ import {
 } from "../NoteProvider/RangeNoteProvider";
 import { ReplayProvider } from "../ReplayProvider";
 import { Question } from "../views/Question";
-import { QuestionProvider } from "./RandomNoteProvider";
+import { QuestionProvider } from "./SeqNoteNameProvider";
 import { Statistic } from "../Statistics";
 import { StaveDisplayer } from "../views/StaveDisplayer";
 import { noteNear, shuffle } from "../utils";
