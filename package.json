@@ -2,9 +2,9 @@
   "name": "sheet_pratice",
   "version": "1.0.0",
   "description": "",
-  "source": "src/*.html",
+  "source": "src/index.html",
   "scripts": {
-    "start": "parcel ./src/*.html",
+    "start": "parcel ./src/index.html",
     "build": "rm -rf ./dist && parcel build --public-url ."
   },
   "keywords": [],

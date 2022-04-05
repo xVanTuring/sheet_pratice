@@ -1,5 +1,5 @@
-import { NoteProvider } from "./NoteProvider";
-import { randomItem } from "./utils";
+import { NoteProvider } from "./NoteProvider/NoteProvider";
+import { randomItem } from "./NoteProvider/utils";
 export interface ReplayProviderConfig {
   // 词典大小
   size: number;
@@ -7,7 +7,11 @@ export interface ReplayProviderConfig {
   learnRate: number;
   keepNegetaive: boolean;
 }
-export class ReplayProvider implements NoteProvider {
+export interface SourceProvider {
+  available(): boolean;
+  next(): string;
+}
+export class ReplayProvider implements SourceProvider{
   private map: Map<string, number>;
   private bassMap: Map<string, number>;
   private trebleMap: Map<string, number>;

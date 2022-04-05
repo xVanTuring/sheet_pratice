@@ -1,18 +1,20 @@
-import { EqualDurationNoteDisplayer } from "../views/EqualDurationNoteDisplayer";
 import { RangeNoteProvider } from "../NoteProvider/RangeNoteProvider";
-import { ReplayProvider } from "../NoteProvider/ReplayProvider";
+import { ReplayProvider } from "../ReplayProvider";
+import { EqualDurationNoteDisplayer } from "../views/EqualDurationNoteDisplayer";
 import { Question } from "../views/Question";
 import { StaveDisplayer } from "../views/StaveDisplayer";
-import { nextNote, nextNoteBy, NoteName, preNote, preNoteBy } from "../utils";
+import { Direction } from "./IntervalProvider";
+import { RandomIntervalProvider } from "./RandomIntervalProvider";
 
 export class IntervalQuantitiesPratice {
   private replayProvider = new ReplayProvider();
 
   private noteRanger = new RangeNoteProvider("c/4", "b/5");
-  private upDirection: boolean = true;
+  private direction: Direction = Direction.Up;
   private staveDisplayer: StaveDisplayer;
   private notedisplayer: EqualDurationNoteDisplayer;
   private questionView: Question;
+  private intervalProvider: RandomIntervalProvider;
   constructor(staveEle: HTMLDivElement, questionEle: HTMLDivElement) {
     this.staveDisplayer = new StaveDisplayer(staveEle, "treble");
     this.notedisplayer = new EqualDurationNoteDisplayer(
@@ -27,26 +29,18 @@ export class IntervalQuantitiesPratice {
         },
       }
     );
+    this.intervalProvider = new RandomIntervalProvider(
+      this.noteRanger,
+      this.direction
+    );
     this.questionView = new Question(questionEle, null, 8);
     this.questionView.resultCb = this.onAnswered.bind(this);
   }
   question: string[] = [];
   start() {
-    const note = this.noteRanger.next();
-    const interval = Math.floor(Math.random() * 8) + 1;
-
-    let nearNote = {
-      noteName: note.split("/")[0] as NoteName,
-      group: parseInt(note.split("/")[1]),
-    };
-    if (this.upDirection) {
-      nearNote = nextNoteBy(nearNote, interval);
-    } else {
-      nearNote = preNoteBy(nearNote, interval);
-    }
-
-    
-    this.question = [note, `${nearNote.noteName}/${nearNote.group}`];
+    const { notes: question, answer: interval } =
+      this.intervalProvider.next();
+    this.question = question;
     this.notedisplayer.draw(this.question);
     this.questionView.setAnswer(String(interval), [
       "1",
@@ -58,6 +52,9 @@ export class IntervalQuantitiesPratice {
       "7",
       "8",
     ]);
+  }
+  setDirection(){
+
   }
   onAnswered(_: string, right: boolean) {
     let qStr = this.question.join("-");

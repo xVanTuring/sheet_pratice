@@ -4,7 +4,7 @@ import {
   bassNoteRanger,
   trebleNoteRanger,
 } from "../NoteProvider/RangeNoteProvider";
-import { ReplayProvider } from "../NoteProvider/ReplayProvider";
+import { ReplayProvider } from "../ReplayProvider";
 import { Question } from "../views/Question";
 import { QuestionProvider } from "./RandomNoteProvider";
 import { Statistic } from "../Statistics";
