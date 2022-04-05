@@ -1,16 +1,16 @@
-import { EqualDurationNoteDisplayer } from "../EqualDurationNoteDisplayer";
+import { EqualDurationNoteDisplayer } from "../views/EqualDurationNoteDisplayer";
 import { CoordinationNoteProvide } from "../NoteProvider/CoordinationNoteProvider";
 import {
   bassNoteRanger,
   trebleNoteRanger,
 } from "../NoteProvider/RangeNoteProvider";
 import { ReplayProvider } from "../NoteProvider/ReplayProvider";
-import { Question } from "../NoteQuestion";
-import { QuestionProvider } from "./QuestionProvider";
+import { Question } from "../views/Question";
+import { QuestionProvider } from "./RandomNoteProvider";
 import { Statistic } from "../Statistics";
-import { StaveDisplayer } from "../StaveDisplayer";
+import { StaveDisplayer } from "../views/StaveDisplayer";
 import { noteNear, shuffle } from "../utils";
-import { VirtualKeyboard } from "../VirtualKeyboard";
+import { VirtualKeyboard } from "../views/VirtualKeyboard";
 const DurationToSize = {
   1: 110,
   2: 130,

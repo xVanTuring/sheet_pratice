@@ -1,4 +1,6 @@
-import { NotePratice } from "./NoteNamePratice/NotePratice";
+import { NotePratice } from "../NoteNamePratice/NoteNamePratice";
+import "../style/index.css"
+import "../style/piano.scss"
 
 const div = document.getElementById("output") as HTMLDivElement;
 const question = document.getElementById("question") as HTMLDivElement;

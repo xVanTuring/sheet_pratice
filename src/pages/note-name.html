@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pratice</title>
+  </head>
+  <body>
+    <label for="clef-select">Choose clef:</label>
+    <select id="clef-select">
+      <option value="treble">Treble</option>
+      <option value="bass">Bass</option>
+    </select>
+    <br />
+    <label for="duration-select">Choose Sub-duration:</label>
+    <select id="duration-select">
+      <option value="1">Full</option>
+      <option value="2">Half</option>
+      <option value="4">Quad</option>
+      <option value="8">Eighth</option>
+      <option value="16">Sixteenth</option>
+    </select>
+    <div
+      id="piano-keyboard"
+      style="display: flex; justify-content: center"
+    ></div>
+    <div
+      style="
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        align-items: center;
+        margin-top: 0px;
+      "
+    >
+      <div id="output"></div>
+    </div>
+    <div
+      style="height: 50px; text-align: center; font-size: 160%"
+      id="noteIndex"
+    >
+      No.
+    </div>
+    <div id="question"></div>
+    <div>
+      <a href="./interval-quantities.html">
+          Interval Quantities
+      </a>
+  </div>
+  </body>
+  <script src="./NoteNamePage.ts" type="module"></script>
+</html>

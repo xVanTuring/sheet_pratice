@@ -1,8 +1,8 @@
-import { EqualDurationNoteDisplayer } from "../EqualDurationNoteDisplayer";
+import { EqualDurationNoteDisplayer } from "../views/EqualDurationNoteDisplayer";
 import { RangeNoteProvider } from "../NoteProvider/RangeNoteProvider";
 import { ReplayProvider } from "../NoteProvider/ReplayProvider";
-import { Question } from "../NoteQuestion";
-import { StaveDisplayer } from "../StaveDisplayer";
+import { Question } from "../views/Question";
+import { StaveDisplayer } from "../views/StaveDisplayer";
 import { nextNote, nextNoteBy, NoteName, preNote, preNoteBy } from "../utils";
 
 export class IntervalQuantitiesPratice {
